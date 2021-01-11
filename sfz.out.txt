@@ -1,0 +1,5 @@
+mkdir -p bin
+make -C CPP/7zip/Bundles/Alone7z all
+make[1]: Entering directory '/storage/emulated/0/Download/p7zip_16.02/CPP/7zip/Bundles/Alone7z'
+make[1]: Nothing to be done for 'all'.
+make[1]: Leaving directory '/storage/emulated/0/Download/p7zip_16.02/CPP/7zip/Bundles/Alone7z'
