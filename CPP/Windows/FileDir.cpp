@@ -861,12 +861,31 @@ bool CDelayedSymLink::Create()
 
 namespace NWindows {
 namespace NDLL {
+	
+char * get_exe_dir() { 
+static char buf[PATH_MAX]; 
+int rslt = readlink("/proc/self/exe", buf, PATH_MAX); 
+if ( rslt < 0 || rslt >= PATH_MAX ) { 
+return NULL; 
+} 
+buf[rslt] = '\0'; 
+
+for(int i=rslt;i>0;i--){
+   if(buf[i]=='/' || buf[i]=='\\'){
+          buf[i+1]='\0';
+          break;
+        }
+  }
+  
+return buf; 
+} 
 
 FString GetModuleDirPrefix()
 {
-  FString s;
-
-  const char *p7zip_home_dir = getenv("P7ZIP_HOME_DIR");
+  char *p7zip_home_dir = get_exe_dir();
+  
+  printf("P7ZIP_HOME_DIR : -%s-\n",p7zip_home_dir );
+  
   if (p7zip_home_dir) {
     return MultiByteToUnicodeString(p7zip_home_dir,CP_ACP);
   }
